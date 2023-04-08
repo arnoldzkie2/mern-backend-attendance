@@ -14,14 +14,14 @@ const getSingleAttendance = async (req, res) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({error: "No such data"})
+        return res.status(404).json({error: "No such data"})
 
     }
 
     const attendance = await Attendance.findOne({_id: id})
 
     if (!attendance) {
-        res.status(404).json({error: "No such data"})
+        return res.status(404).json({error: "No such data"})
     }
 
     res.status(200).json(attendance)
@@ -45,30 +45,15 @@ const deleteAttendance = async (req, res) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({error: "No such data"})
+        return res.status(404).json({error: "No such data"})
     }
 
-    try {
-        const attendance = await Attendance.findOneAndDelete({ _id: id }, {
-        ...req.body
-    })
+    const attendance = await Attendance.findOneAndDelete({_id: id})
 
     if (!attendance) {
-        res.status(404).json({error: "No such data"})
+        return res.status(404).json({error: "No such data"})
     }
-        
-    } catch (error) {
-        console.log(error)
-    }
-
-    // const attendance = await Attendance.findOneAndDelete({ _id: id }, {
-    //     ...req.body
-    // })
-
-    // if (!attendance) {
-    //     res.status(404).json({error: "No such data"})
-    // }
-    // res.status(200).json(attendance)
+    res.status(200).json(attendance)
 }
 
 // update attendance
@@ -76,7 +61,7 @@ const updateAttendance = async (req, res) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({error: "No such data"})
+        return res.status(404).json({error: "No such data"})
     }
 
     const attendance =  await Attendance.findOneAndUpdate({ _id: id }, {
@@ -84,7 +69,7 @@ const updateAttendance = async (req, res) => {
     })
 
     if (!attendance) {
-        res.status(404).json({error: "No such data"})
+        return res.status(404).json({error: "No such data"})
     }
     res.status(200).json(attendance)
 

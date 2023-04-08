@@ -18,9 +18,9 @@ router.get("/:id", getSingleAttendance)
 router.post("/", createAttendance)
 
 // delete attendance
-router.delete("/:d", deleteAttendance)
+router.delete("/:id", deleteAttendance)
 
 // update attendance
-router.patch("/:d", updateAttendance)
+router.patch("/:id", updateAttendance)
 
 module.exports = router
